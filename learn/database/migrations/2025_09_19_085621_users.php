@@ -11,19 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('full_name')->nullable();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('full_name');
             $table->date('birth_date')->nullable();
             $table->string('phone')->nullable();
+            $table->string('email')->unique();
+            $table->string('login')->unique();
+            $table->string('password');
             $table->string('photo')->nullable();
+            $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('users');
     }
 };
